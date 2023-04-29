@@ -4,3 +4,178 @@
 *:after {
   box-sizing: border-box;
 }
+
+body {
+  margin: 0px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  text-align: left;
+  background-color: white;
+}
+
+.headerLink:link {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.headerLink:visited {
+  color: black;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: auto;
+  padding: 30px 10px 30px 10px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.siteName {
+  font-size: 180%;
+  font-weight: bold;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: black;
+  list-style-type: none;
+  padding: 0;
+  margin-top: 0%;
+}
+
+nav ul li {
+  padding: .8rem 2vw;
+  text-decoration: none;
+  color: white;
+}
+
+nav ul li a {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.main-div, footer {
+  margin-left: 5px;
+}
+
+.hero-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.hero-text {
+  color: #00b1d0;
+  background-color: rgb(255, 255, 255, 0.5);
+  line-height: 5px;
+  position: absolute;
+  left: 10%;
+  bottom: 45%;
+}
+
+.hero-text a {
+  background-color: #00b1d0;
+  color: black;
+  text-decoration: none;
+  padding: 8px;
+  line-height: 25px;
+}
+
+.reviews ul li {
+  line-height: 35px;
+}
+
+.upgrades div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.upgrades div picture {
+  background-color: #00b1d0;
+  border-style: solid;
+  border-color: black;
+  width: 220px;
+}
+
+.flux, .bumper {
+  padding: 10px;
+}
+
+.flame {
+  padding: 1px;
+}
+
+.hub {
+  padding: 6.5px;
+}
+
+.upgrade-1 {
+  display: flex;
+  flex-direction: row;
+}
+
+.upgrade-2 {
+  display: flex;
+  flex-direction: row;
+}
+
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: auto auto ;
+  grid-template-rows: auto auto ;
+}
+
+@media (min-width: 800px) {
+  html {
+    background: url('../images/site/small_check.jpg') no-repeat center fixed;
+    background-size: cover;
+  }
+
+  body {
+    margin: 25px 75px 25px 75px;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 5px;
+    border-color: #00b1d0;
+  }
+
+  nav, .main-div, footer {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .hero-text {
+    left: 20%;
+    bottom: 40%;
+  }
+
+  .upgrades div picture {
+    width: 140px;
+  }
+
+  .reviews-upgrades {
+    display: grid;
+    column-gap: 10px;
+    grid-template-columns: auto auto;
+  }
+
+  .reviews {grid-area: 1 / 2 / 1 / 3;}
+  .upgrades {grid-area: 1 / 1 / 1 / 2;}
+}
+
+@media (min-width: 1000px) {
+  .upgrades div picture {
+    width: 220px;
+  }
+}
