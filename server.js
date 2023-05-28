@@ -1,5 +1,3 @@
-// import Util from "./utilities/index";
-
 /* ******************************************
  * This server.js file is the primary file of the 
  * application. It is used to control the project.
@@ -12,6 +10,7 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const baseController = require("./controllers/baseController")
+const invController = require("./controllers/invController")
 const utilities = require("./utilities/")
 
 /* ***********************
@@ -24,11 +23,13 @@ app.set("layout", "./layouts/layout") // not at views root
 /* ***********************
  * Routes
  *************************/
-app.use(require("./routes/static"))
+app.use(utilities.handleErrors(require("./routes/static")))
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome))
 // Inventory routes
-app.use("/inv", require("./routes/inventoryRoute"))
+app.use("/inv", utilities.handleErrors(require("./routes/inventoryRoute")))
+// Intentional error route
+app.get('/trigger-error', utilities.catchError);
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})

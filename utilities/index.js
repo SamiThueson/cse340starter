@@ -57,11 +57,48 @@ Util.buildClassificationGrid = async function(data){
   return grid
 }
 
+/* **************************************
+* Build the inventory id view HTML
+* ************************************ */
+Util.buildInventoryGrid = async function(data){
+  let grid
+  if(data.length > 0){
+    data.forEach(vehicle => {
+      grid = '<div class="inv-display">'
+      grid +=  '<p><img src="' + vehicle.inv_image 
+      +'" alt="Image of '+ vehicle.inv_make + ' ' + vehicle.inv_model 
+      +' on CSE Motors" /></p>'
+      grid += '<div class="car-description">'
+      grid += '<table>'
+      grid += '<tr><h3 class="veh-detail">'+ vehicle.inv_make + ' ' + vehicle.inv_model +' Details</tr></h3>'
+      grid += '<tr><td>Price: $' 
+      + new Intl.NumberFormat('en-US').format(vehicle.inv_price) + '</td></tr>'
+      grid += '<tr><td>Description: ' + vehicle.inv_description + '</td></tr>'
+      grid += '<tr><td>Color: ' + vehicle.inv_color + '</td></tr>'
+      grid += '<tr><td>Mileage: ' + vehicle.inv_miles.toLocaleString("en-US") + '</td></tr>'
+      grid += '</table>'
+      grid += '</div>'
+      grid += '</div>'
+    })
+  } else { 
+    grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+  }
+  return grid
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+Util.catchError = (req, res, next) => {
+  try {
+    throw new Error('Intentional error');
+  } catch (error) {
+    next(error);
+  }
+}
 
 module.exports = Util
