@@ -1,0 +1,14 @@
+<div class="account">
+<% if (title) { %>
+  <h1><%= title %></h1>
+  <% } else {
+    res.redirect('/')
+  } %>
+
+<%- messages() %>
+
+<ul class="manage">
+  <li><a href="/inv/add-classification" title="Add Classification page">Add New Classification</a></li>
+  <li><a href="/inv/add-inventory" title="Add Inventory page">Add New Inventory</a></li>
+</ul>
+</div>

@@ -19,9 +19,26 @@ Util.getNav = async function (req, res, next) {
       row.classification_name +
       "</a>"
     list += "</li>"
-  })
+  }) 
   list += "</ul>"
   return list
+}
+
+/* ************************
+ * Constructs the classification HTML select list
+ ************************** */
+Util.getClassificationList = async function (req, res, next) {
+  let data = await invModel.getClassifications()
+  let option
+  data.rows.forEach((row) => {
+    option += 
+      '<option value"' + 
+      row.classification_id +
+      '">' +
+      row.classification_name +
+      "</option>"
+  })
+  return option
 }
 
 /* **************************************
@@ -94,11 +111,15 @@ Util.buildInventoryGrid = async function(data){
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
 Util.catchError = (req, res, next) => {
-  try {
+  // try {
+  if (err) {
     throw new Error('Intentional error');
-  } catch (error) {
-    next(error);
+  } else {
+    return
   }
+  // } catch (error) {
+  //   next(error);
+  // }
 }
 
 module.exports = Util

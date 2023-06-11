@@ -12,6 +12,8 @@ body {
   background-color: white;
 }
 
+/********** HEADER *************/
+
 .headerLink:link {
   color: black;
   background-color: transparent;
@@ -38,6 +40,8 @@ body {
   font-weight: bold;
 }
 
+/********** NAVIGATION ***********/
+
 nav ul {
   display: flex;
   flex-direction: row;
@@ -63,6 +67,8 @@ nav ul li a {
 nav ul li a:hover {
   color: #00b1d0;
 }
+
+/************* MAIN **************/
 
 .main-div, footer {
   margin-left: 5px;
@@ -154,6 +160,8 @@ nav ul li a:hover {
   margin: 5%;
 }
 
+/********* INVENTORY CLASSIFICATION **********/
+
 .class-title {
   margin-left: 10px;
 }
@@ -179,6 +187,8 @@ nav ul li a:hover {
   border-radius: 10px;
 }
 
+/*********** INVENTORY CAR ************/
+
 tr:nth-child(even) {
   background-color: #e3e3e3;
 }
@@ -195,6 +205,62 @@ table {
 
 table tr td {
   padding: 10px;
+}
+
+/********** ACCOUNT **********/
+
+.account h1, span {
+  padding-left: 10px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+}
+
+.newItems p {
+  padding-left: 16px;
+}
+
+.newItems {
+  background-color: #00b1d0;
+  padding: 10px;
+  border-radius: 10px;
+  min-width: 60%;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+}
+
+/* input:invalid {
+  background-color: lightcoral;
+}
+
+input:valid {
+  background-color: lightgreen;
+} */
+
+.manage {
+  list-style-type: none;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  border-radius: 5px;
+  border-color: black;
+}
+
+.manage li {
+  margin: 10px;
+}
+
+.manage a:link, .manage a:visited {
+  color: black;
+}
+
+.manage a:hover {
+  color: #00b1d0;
+  
 }
 
 @media (min-width: 800px) {

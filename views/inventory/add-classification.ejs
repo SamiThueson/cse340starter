@@ -1,0 +1,28 @@
+<div class="account">
+<% if (title) { %>
+  <h1><%= title %></h1>
+  <% } else {
+    res.redirect('/')
+  } %>
+
+<%- messages() %>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<form id="addClassForm" action="/inv/add-classification" method="post">
+  <div class="newItems">
+    <p><i>Field is required.</i></p>
+    <fieldset>
+      <label for="class">Classification Name:</label><br>
+      <i>Name must be alphabetic only.</i><br>
+      <input type="text" id="class" name="classification_name" required value="<%= locals.classification_name %>"><br>
+      <input type="submit" value="Add Classification">
+    </fieldset>
+  </div>
+</form>
+</div>
