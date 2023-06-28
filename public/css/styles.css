@@ -209,7 +209,7 @@ table tr td {
 
 /********** ACCOUNT **********/
 
-.account h1, span, .updateh2 {
+.account h1, span, #updateh2 {
   padding-left: 10px;
 }
 
