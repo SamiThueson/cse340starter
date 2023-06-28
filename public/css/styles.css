@@ -209,7 +209,7 @@ table tr td {
 
 /********** ACCOUNT **********/
 
-.account h1, span {
+.account h1, span, .updateh2 {
   padding-left: 10px;
 }
 
@@ -242,7 +242,7 @@ input:valid {
   background-color: lightgreen;
 } */
 
-.manage {
+.inv-manage {
   list-style-type: none;
   padding-left: 20px;
   padding-bottom: 20px;
@@ -250,15 +250,32 @@ input:valid {
   border-color: black;
 }
 
-.manage li {
+.inv-manage li {
   margin: 10px;
 }
 
-.manage a:link, .manage a:visited {
+.inv-manage a:link, .inv-manage a:visited {
   color: black;
 }
 
-.manage a:hover {
+.inv-manage a:hover {
+  color: #00b1d0;
+  
+}
+
+.acc-manage {
+  list-style-type: none;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  border-radius: 5px;
+  border-color: black;
+}
+
+.acc-manage a:link, .acc-manage a:visited {
+  color: black;
+}
+
+.acc-manage a:hover {
   color: #00b1d0;
   
 }

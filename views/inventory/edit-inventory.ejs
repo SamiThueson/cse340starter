@@ -14,13 +14,13 @@
  </ul>
 <% } %>
 
-<form id="addInvForm" action="/inv/add-inventory" method="post">
+<form id="updateForm" action="/inv/update" method="post">
   <div class="newItems">
   <p>All fields are required.</p>
   <fieldset>
       <label for="class">Classification</label><br>
-      <select id="class" name="classification_id" required><%- classificationSelect %></select><br>
-
+      <select id="class" name="classification_id" required value="<%= locals.classification_name %>"><%- classificationSelect %></select><br>
+      
       <label for="make">Make</label><br>
       <input type="text" id="make" name="inv_make" placeholder="Min of 3 characters" required pattern="[A-Za-z]+" minlength="3" value="<%= locals.inv_make %>"><br>
       
@@ -37,19 +37,25 @@
       <input type="text" id="thumbnail" name="inv_thumbnail" required value="/images/vehicles/no-image.png"><br>
       
       <label for="price">Price</label><br>
-      <input type="text" id="price" name="inv_price" placeholder="Decimal or integer" required pattern="([+-]?(?=\.\d|\d)(?:\d+)?(?:\.?\d*))(?:[Ee]([+-]?\d+))?" value="<%= locals.inv_price %>"><br>
+      <input type="text" id="price" name="inv_price" placeholder="Decimal or integer" required value="<%= locals.inv_price %>"><br>
       
       <label for="year">Year</label><br>
-      <input type="text" id="year" name="inv_year" placeholder="4-digit year" required pattern="\d{4}" value="<%= locals.inv_year %>"><br>
+      <input type="text" id="year" name="inv_year" pattern="\d{4}" placeholder="4-digit year" required value="<%= locals.inv_year %>"><br>
       
       <label for="miles">Miles</label><br>
       <input type="number" id="miles" name="inv_miles" placeholder="Digits only" required value="<%= locals.inv_miles %>"><br>
       
       <label for="color">Color</label><br>
-      <input type="text" id="color" name="inv_color" placeholder="i.e. Khaki Blue" required pattern="[A-Za-z]+" value="<%= locals.inv_color %>"><br>
+      <input type="text" id="color" name="inv_color" placeholder="i.e. Khaki Blue" required value="<%= locals.inv_color %>"><br>
       
-      <input type="submit" value="Add Vehicle">
+      <input id="submit" type="submit" name="submit" value="Update Vehicle" disabled>
+      <input type="hidden" name="inv_id"
+        <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+        <% } %>>
     </fieldset>
   </div>
 </form>
 </div>
+
+
+<script src="../../js/inv-update.js"></script>

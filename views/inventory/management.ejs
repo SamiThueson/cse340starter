@@ -1,14 +1,24 @@
 <div class="account">
-<% if (title) { %>
-  <h1><%= title %></h1>
-  <% } else {
-    res.redirect('/')
-  } %>
+  <% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
 
-<%- messages() %>
+  <%- messages() %>
 
-<ul class="manage">
-  <li><a href="/inv/add-classification" title="Add Classification page">Add New Classification</a></li>
-  <li><a href="/inv/add-inventory" title="Add Inventory page">Add New Inventory</a></li>
-</ul>
+  <ul class="inv-manage">
+    <li><a href="/inv/add-classification" title="Add Classification page">Add New Classification</a></li>
+    <li><a href="/inv/add-inventory" title="Add Inventory page">Add New Vehicle</a></li>
+  </ul>
+
+  <div class="inv-manage">
+    <h2>Manage Inventory</h2>
+    <p>Select a classification from the list to see the vehicles belonging to the classification.</p>
+    <select id="classificationList" name="classification_id"><%- classificationSelect %></select>
+    <table id="inventoryDisplay"></table>
+  </div>
 </div>
+
+<noscript>JavaScript must be enabled to use this page.</noscript>
+<script src="../../js/inventory.js"></script>

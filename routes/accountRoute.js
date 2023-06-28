@@ -5,6 +5,16 @@ const accController = require("../controllers/accountController")
 const regValidate = require('../utilities/account-validation')
 
 router.get("/login", utilities.handleErrors(accController.buildLogin));
+// Process the login attempt
+router.post(
+  "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accController.accountLogin)
+)
+
+router.get("/", utilities.checkLogin, utilities.handleErrors(accController.buildAccManagment));
+
 router.get("/register", utilities.handleErrors(accController.buildRegister));
 router.post(
   "/register", 
@@ -13,15 +23,18 @@ router.post(
   utilities.handleErrors(accController.registerAccount)
 );
 
-// Process the login attempt
-router.post(
-  "/login",
-  regValidate.loginRules(),
-  regValidate.checkLoginData,
-  (req, res) => {
-    res.status(200).send('login process')
-  }
-  // utilities.handleErrors(accController.checkLogin)
-)
+router.get("/update/", utilities.handleErrors(accController.buildAccUpdate));
+router.post("/update/", 
+  regValidate.registationRules(), 
+  regValidate.checkUpdateData,
+  utilities.handleErrors(accController.accountUpdate)
+);
+router.post("/update/", 
+  regValidate.registationRules(), 
+  // regValidate.checkUpdateData,
+  utilities.handleErrors(accController.passwordChange)
+);
+
+router.get('/logout', utilities.logout);
 
 module.exports = router;

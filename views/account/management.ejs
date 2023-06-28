@@ -1,0 +1,23 @@
+<div class="account">
+<% if (title) { %>
+  <h1><%= title %></h1>
+  <% } else {
+    res.redirect('/')
+  } %>
+  
+<%- messages() %>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+<div class="acc-manage">
+  <h2>Welcome <%= name %></h2>
+  <p>You're Logged In!</p>
+  <a href="/account/update" title="Update Account">Update Account Information</a><br>
+  <%- link %>
+</div>
+</div>
