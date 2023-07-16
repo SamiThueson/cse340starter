@@ -20,7 +20,7 @@
       <p>All fields are required.</p>
       <fieldset>
           <label for="to">To:</label><br>
-          <select id="to" name="message_to" required value="<%= locals.account_id %>"><%- messageToSelect %></select><br>
+          <select id="to" name="message_to" required><%- messageToSelect %></select><br>
 
           <label for="subject">Subject:</label><br>
           <input type="text" id="subject" name="message_subject" required value="<%= locals.message_subject %>"><br>
