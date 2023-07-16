@@ -1,5 +1,6 @@
 const { render } = require("ejs")
 const invModel = require("../models/inventory_model")
+const accModel = require("../models/account-model")
 const Util = {}
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -148,21 +149,6 @@ Util.checkJWTToken = (req, res, next) => {
  }
 
  /* ****************************************
- *  Check Account Type
- * ************************************ */
- Util.accountTypeView = async function (accountData) {
-  let link
-  if (accountData.account_type == "Admin") {
-    link = '<h3>Inventory Management</h3>'
-    link += '<p><a href="/inv/">Manage Inventory</a></p>'
-  } else if (accountData.account_type == "Employee") {
-    link = '<h3>Inventory Management</h3>'
-    link += '<p><a href="/inv/">Manage Inventory</a></p>'
-  }
-  return link
- }
-
- /* ****************************************
 * Middleware to check token validity
 **************************************** */
 Util.checkAccountType = (req, res, next) => {
@@ -186,9 +172,92 @@ Util.checkAccountType = (req, res, next) => {
   }
  }
 
+/* ****************************************
+* Middleware to logout user
+**************************************** */
  Util.logout = (req, res, next) => {
   res.clearCookie("jwt")
   return res.redirect("/")
  }
+
+ /* ************************
+ * Constructs the message_to HTML select list
+ ************************** */
+Util.buildMessageToList = async function (optionSelected) {
+  let data = await accModel.getAccountId()
+  let option = '<option value="">Select a recipient</option>'
+  data.rows.forEach((row) => {
+    option += 
+      `<option value="${row.account_id}" 
+      ${row.account_id === Number(optionSelected)? 'selected':''}>
+      ${row.account_firstname} ${row.account_lastname}
+      </option>`
+  })
+  return option
+}
+
+/* **************************************
+* Build the message inbox view HTML
+* ************************************ */
+Util.buildInboxGrid = async function(data) {
+  const options = {
+    year: 'numeric',
+    month: 'numeric',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
+    timeZoneName: 'short'
+  };
+  const name = await accModel.getAccountNameById(data[0].message_from)
+
+  // let name
+  // data.forEach(async message => {
+  //   name += await accModel.getAccountNameById(message.message_from)
+  //   return name
+  // })
+  // console.log(name)
+  let grid
+  if(data.length > 0){
+    grid = '<table class="inbox-table">'
+    grid += '<tr><th>Recieved</th>'
+    grid += '<th>Subject</th>'
+    grid += '<th>From</th>'
+    grid += '<th>Read</th></tr>'
+    data.forEach(async message => {
+      // const name = await accModel.getAccountNameById(message.message_from)
+      // console.log(name.account_firstname + name.account_lastname)
+      grid += '<tr><td>' + message.message_created.toLocaleString('en-US', options) + '</td>'
+      grid += '<td><a href="../../message/show-message/' + message.message_id + '">' + message.message_subject + '</a></td>'
+      grid += `<td>${name.account_firstname} ${name.account_lastname}</td>`
+      grid += '<td>' + message.message_read + '</td></tr>'
+    })
+    grid += '</table>'
+  } else { 
+    grid += '<p class="notice">Sorry, there are no messages.</p>'
+  }
+  return grid
+}
+
+/* **************************************
+* Build the message inbox view HTML
+* ************************************ */
+Util.buildMessageGrid = async function(data) {
+  const name = await accModel.getAccountNameById(data[0].message_from)
+  let grid
+  if(data.length > 0){
+    data.forEach(message => {
+      grid = '<div class="message-content">'
+      grid += '<p><b>Subject: </b>' + message.message_subject + '</p>'
+      grid += `<p><b>From: </b>${name.account_firstname} ${name.account_lastname}</p>`
+      grid += '<p><b>Message:</b></p>'
+      grid += '<p>' + message.message_body + '</p>'
+      grid += '</div>'
+    })
+  } else { 
+    grid += '<p class="notice">Sorry, message does not exist.</p>'
+  }
+  return grid
+}
 
 module.exports = Util

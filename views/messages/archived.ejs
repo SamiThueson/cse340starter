@@ -1,0 +1,23 @@
+<div class="account">
+  <% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+    
+  <%- messages() %>
+  <% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+  <div class="inv-manage">
+    <a href="/message/" title="Return Inbox">Return to Inbox</a><br>
+  </div>
+
+  <div class="inv-display"><%- grid %></div>
+  
+</div>

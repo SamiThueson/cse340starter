@@ -54,6 +54,13 @@ async function getAccountById(account_id) {
   }
 }
 
+/* *****************************
+* Get all account id's
+* ***************************** */
+async function getAccountId() {
+  return await pool.query("SELECT * FROM public.account ORDER BY account_id")
+}
+
 /* ***************************
  *  Update account Data
  * ************************** */
@@ -72,7 +79,7 @@ async function accountUpdate(
       account_email,
       account_id
     ])
-    return data.rows[0]
+    return data
   } catch (error) {
     console.error("model error: " + error)
   }
@@ -98,4 +105,19 @@ async function passwordChange(
   }
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, accountUpdate, passwordChange }
+/* *****************************
+* Return account data using the account id
+* ***************************** */
+async function getAccountNameById(account_id) {
+  try {
+    const data = await pool.query(
+      "SELECT account_firstname, account_lastname FROM public.account WHERE account_id = $1",
+      [account_id]
+    )
+    return data.rows[0]
+  } catch (error) {
+    console.error("getaccountnamebyid error" + error)
+  }
+}
+
+module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, getAccountId, accountUpdate, passwordChange, getAccountNameById }

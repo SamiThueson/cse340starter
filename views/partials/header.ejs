@@ -4,7 +4,7 @@
   </span>
   <div id="tools">
     <% if (locals.loggedin) { %>
-      <a class="headerLink" title="Account page" href="/account">Welcome <%= locals.account_firstname %> </a>
+      <a class="headerLink" title="Account page" href="/account">Welcome <%= locals.accountData.account_firstname %>  |  </a>
       <a class="headerLink" title="Click to logout" href="/account/logout">Logout</a>
     <% } else { %> 
       <a class="headerLink" title="Click to login" href="/account/login">My Account</a>
@@ -12,4 +12,3 @@
   </div>
 </header>
 
-<!-- <script defer src="../../utilities/index.js"></script> -->

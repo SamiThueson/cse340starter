@@ -1,0 +1,33 @@
+<div class="class-div">
+  <% if (title) { %>
+    <h1 class="class-title"><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+  <%- messages() %>
+  <% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+  <div><%- grid %></div>
+  <div class="line"></div>
+
+  <div class="message-buttons">
+    <p><a class="return-inbox" href="/message/" title="Return Inbox">Return to Inbox</a></p>
+    <a href="/message/reply/<%- message_id %>"><button>Reply</button></a><br>
+    <form action="/message/mark-read/<%- message_id %>" method="POST">
+      <button type="submit">Mark as Read</button>
+    </form>
+    <form action="/message/mark-archived/<%- message_id %>" method="POST">
+      <button type="submit">Archive Message</button>
+    </form>
+    <form action="/message/delete/<%- message_id %>" method="POST">
+      <button type="submit">Delete Message</button>
+    </form>    
+  </div>
+</div>

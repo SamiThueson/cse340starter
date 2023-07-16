@@ -59,6 +59,8 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", require("./routes/inventoryRoute"))
 // Account routes
 app.use("/account", require("./routes/accountRoute"))
+// Message routes
+app.use("/message", require("./routes/messageRoute"))
 // Intentional error route
 // app.get('/trigger-error', utilities.catchError);
 

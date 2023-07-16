@@ -23,14 +23,14 @@ router.post(
   utilities.handleErrors(accController.registerAccount)
 );
 
-router.get("/update/", utilities.handleErrors(accController.buildAccUpdate));
-router.post("/update/", 
-  regValidate.registationRules(), 
-  regValidate.checkUpdateData,
+router.get("/edit/", utilities.handleErrors(accController.buildAccUpdate));
+router.post("/update-account", 
+  // regValidate.registationRules(), 
+  // regValidate.checkUpdateData,
   utilities.handleErrors(accController.accountUpdate)
 );
-router.post("/update/", 
-  regValidate.registationRules(), 
+router.post("/update-password", 
+  // regValidate.registationRules(), 
   // regValidate.checkUpdateData,
   utilities.handleErrors(accController.passwordChange)
 );

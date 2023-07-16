@@ -17,7 +17,17 @@
 <div class="acc-manage">
   <h2>Welcome <%= name %></h2>
   <p>You're Logged In!</p>
-  <a href="/account/update" title="Update Account">Update Account Information</a><br>
-  <%- link %>
+  <a href="/account/edit/" title="Update Account">Update Account Information</a><br>
+
+  <h2>Message Center</h2>
+  <ul id="mess-display">
+    <li>You have # unread messages.</li>
+    <li>Go to <a href="/message/">inbox</a></li>
+  </ul>
+
+  <% if (locals.accountData.account_type == "Admin" || locals.accountData.account_type == "Employee") { %>
+    <h2>Inventory Management</h2>
+    <p><a href="/inv/">Manage Inventory</a></p>
+  <% } %> 
 </div>
 </div>

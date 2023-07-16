@@ -1,0 +1,22 @@
+<div class="account">
+  <% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else { res.redirect('/') } %>
+    
+  <%- messages() %>
+  <!-- <%# if (errors) { %>
+    <ul class="notice">
+   <%# errors.array().forEach(error => { %>
+     <li><%# error.msg %></li>
+  <%#  }) %>
+   </ul>
+  <%# } %> -->
+
+  <ul class="inv-manage">
+    <li><a href="/message/new-message" title="create new message">Create New Message</a></li>
+    <li><a href="/message/archived" title="archived messages">View # <%# countArchivedMessages %> Archived Messages</a></li>
+  </ul>
+
+  <div class="inv-display"><%- grid %></div>
+
+</div>

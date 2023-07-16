@@ -1,0 +1,39 @@
+<div class="account">
+  <% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+    
+  <%- messages() %>
+  <% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+  <form id="addMessageForm" action="/message/new-message" method="post">
+    <div class="newItems">
+      <p>This is an internal system only. Recipients are limited to the three generic accounts.</p>
+      <p>All fields are required.</p>
+      <fieldset>
+          <label for="to">To:</label><br>
+          <select id="to" name="message_to" required value="<%= locals.account_id %>"><%- messageToSelect %></select><br>
+
+          <label for="subject">Subject:</label><br>
+          <input type="text" id="subject" name="message_subject" required value="<%= locals.message_subject %>"><br>
+
+          <label for="body">Message:</label><br>
+          <textarea id="body" name="message_body" rows="10" cols="30" required> <%= locals.message_body %> </textarea><br>
+
+          <input type="submit" value="Send">
+
+          <input type="hidden" name="message_from"
+          <% if(locals.accountData.account_id) { %> value="<%= locals.accountData.account_id %>"
+          <% } %>>
+      </fieldset>
+    </div>
+  </form>
+</div>

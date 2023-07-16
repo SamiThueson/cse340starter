@@ -1,4 +1,3 @@
-const { body } = require("express-validator")
 const invModel = require("../models/inventory_model")
 const utilities = require("../utilities/")
 
@@ -41,7 +40,7 @@ invCont.buildByInventoryId = async function (req, res, next) {
 * *************************************** */
 invCont.buildClassification = async function (req, res, next) {
   let nav = await utilities.getNav()
-  console.log("build classification view")
+  // console.log("build classification view")
   res.render("./inventory/add-classification", {
     title: "Add New Classification",
     nav,
@@ -100,10 +99,7 @@ invCont.buildInventory = async function (req, res, next) {
 * *************************************** */
 invCont.addInventory = async function (req, res, next) {
   let nav = await utilities.getNav()
-  // const inv_id = req.params.inv_id
-  // const itemData = await invModel.getInventoryById(inv_id)
   const classificationSelect = await utilities.buildClassificationList(classification_id)
-  // console.log(itemData.classification_id)
 
   const {
     inv_make, 
@@ -117,7 +113,6 @@ invCont.addInventory = async function (req, res, next) {
     inv_color, 
     classification_id 
   } = req.body
-  // console.log(req.body)
 
   const regResult = await invModel.addInventory(
     inv_make, 

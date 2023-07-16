@@ -88,7 +88,7 @@ nav ul li a:hover {
   line-height: 5px;
   position: absolute;
   left: 10%;
-  bottom: 45%;
+  top: 230px;
 }
 
 .hero-text a {
@@ -260,7 +260,6 @@ input:valid {
 
 .inv-manage a:hover {
   color: #00b1d0;
-  
 }
 
 .acc-manage {
@@ -279,6 +278,57 @@ input:valid {
   color: #00b1d0;
   
 }
+
+/************* INBOX *************/
+.inbox-table {
+  table-layout: fixed;
+  /* width: 70%; */
+  border-collapse: collapse;
+}
+
+.inbox-table th, td {
+  /* width: auto; */
+  text-align: center;
+  /* padding: 10px; */
+  /* border: 1px solid black; */
+}
+
+/************* SHOW MESSAGE *************/
+.message-content {
+  margin-left: 10%;
+  margin-bottom: 22px;
+}
+.message-content p {
+  margin-bottom: 8px;
+  margin-top: 0px;
+}
+
+.line {
+  border: 3px solid black;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.message-buttons {
+  margin-left: 10px;
+}
+.message-buttons p, button {
+  margin-bottom: 5px;
+}
+.message-buttons p {
+  margin-top: 5px;
+}
+.return-inbox:link, .return-inbox:visited {
+  color: black;
+}
+.return-inbox:hover {
+  color: #00b1d0;
+}
+
+.message-buttons form {
+  display: block;
+}
+
 
 @media (min-width: 800px) {
   html {
@@ -301,7 +351,7 @@ input:valid {
 
   .hero-text {
     left: 20%;
-    bottom: 40%;
+    top: 250px;
   }
 
   .upgrades div picture {

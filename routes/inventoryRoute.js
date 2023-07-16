@@ -27,6 +27,7 @@ router.post("/add-inventory",
 
 // Route for building inventory management view
 router.get("/", utilities.checkAccountType, utilities.handleErrors(invController.buildInvManagment));
+
 // Route for building inventory view by classification
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
 

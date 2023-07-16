@@ -4,10 +4,12 @@ const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
 
+const accCont = {}
+
 /* ****************************************
 *  Deliver login view
 * *************************************** */
-async function buildLogin(req, res, next) {
+accCont.buildLogin = async function (req, res, next) {
   let nav = await utilities.getNav()
   res.render("./account/login", {
     title: "Login",
@@ -19,7 +21,7 @@ async function buildLogin(req, res, next) {
 /* ****************************************
 *  Deliver registration view
 * *************************************** */
-async function buildRegister(req, res, next) {
+accCont.buildRegister = async function (req, res, next) {
   let nav = await utilities.getNav()
   res.render("./account/register", {
     title: "Register",
@@ -31,7 +33,7 @@ async function buildRegister(req, res, next) {
 /* ****************************************
 *  Process Registration
 * *************************************** */
-async function registerAccount(req, res) {
+accCont.registerAccount = async function (req, res) {
   let nav = await utilities.getNav()
   const { account_firstname, account_lastname, account_email, account_password } = req.body
 
@@ -79,7 +81,7 @@ async function registerAccount(req, res) {
 /* ****************************************
  *  Process login request
  * ************************************ */
-async function accountLogin(req, res) {
+accCont.accountLogin = async function (req, res) {
   let nav = await utilities.getNav()
   const { account_email, account_password } = req.body
   const accountData = await accModel.getAccountByEmail(account_email)
@@ -108,25 +110,28 @@ async function accountLogin(req, res) {
  /* ****************************************
 *  Deliver account management view
 * *************************************** */
-async function buildAccManagment(req, res, next) {
+accCont.buildAccManagment = async function (req, res, next) {
   let nav = await utilities.getNav()
   const account_id = parseInt(res.locals.accountData.account_id)
   const accountData = await accModel.getAccountById(account_id)
-  const link = await utilities.accountTypeView(accountData)
+  // const count = await messModel.countUnreadMessages(res.locals.accountData.account_id)
+  // const countUnreadMessages = count.rows[0].count
   res.render("./account/management", {
     title: "Account Managment",
     nav,
     errors: null, 
     name: accountData.account_firstname,
-    link
+    // accountData: res.locals.accountData,
+    // countUnreadMessages
   })
 }
 
  /* ****************************************
 *  Deliver update view
 * *************************************** */
-async function buildAccUpdate(req, res, next) {
+accCont.buildAccUpdate = async function (req, res, next) {
   const account_id = parseInt(res.locals.accountData.account_id)
+  // const account_id = parseInt(req.params.account_id)
   let nav = await utilities.getNav()
   const accountData = await accModel.getAccountById(account_id)
   res.render("./account/update", {
@@ -143,16 +148,19 @@ async function buildAccUpdate(req, res, next) {
 /* ****************************************
 *  Updates the account information
 * *************************************** */
-async function accountUpdate(req, res, next) {
-  const account_id = parseInt(res.locals.accountData.account_id)
+accCont.accountUpdate = async function (req, res, next) {
+  // const account_id = parseInt(res.locals.accountData.account_id)
   let nav = await utilities.getNav()
-  const accountData = await accModel.getAccountById(account_id)
+  // const account_id = parseInt(res.locals.accountData.account_id)
+
+  // const accountData = await accModel.getAccountById(account_id)
   const {
     account_firstname,
     account_lastname,
     account_email,
-  } = parseInt(res.locals.accountData)
-  console.log(accountData.account_id)
+    account_id
+  } = parseInt(req.body)
+  console.log(req.body)
 
   const updateResult = await accModel.accountUpdate(
     account_firstname,
@@ -160,21 +168,21 @@ async function accountUpdate(req, res, next) {
     account_email,
     account_id
   )
-  console.log(updateResult)
+  // console.log(updateResult)
 
   if (updateResult) {
     req.flash("notice", `The account was successfully updated.`)
-    res.redirect("/update/")
+    res.redirect("/management/")
   } else {
     req.flash("notice", "Sorry, the update failed.")
-    res.status(501).render("account/update", {
+    res.status(501).render("account/update-account", {
     title: "Edit Account",
     nav,
     errors: null,
-    account_firstname,
-    account_lastname,
-    account_email,
-    account_id
+    account_firstname: account_firstname,
+    account_lastname: account_lastname,
+    account_email: account_email,
+    account_id: account_id
     })
   }
 }
@@ -182,7 +190,7 @@ async function accountUpdate(req, res, next) {
 /* ****************************************
 *  Changes the password
 * *************************************** */
-async function passwordChange(req, res, next) {
+accCont.passwordChange = async function (req, res, next) {
   let nav = await utilities.getNav()
   const { account_password } = req.body
 
@@ -193,7 +201,7 @@ async function passwordChange(req, res, next) {
     hashedPassword = await bcrypt.hashSync(account_password, 10)
   } catch (error) {
     req.flash("notice", 'Sorry, there was an error processing the password update.')
-    res.status(500).render("account/update", {
+    res.status(500).render("account/edit", {
       title: "Edit Account",
       nav,
       errors: null,
@@ -209,7 +217,7 @@ async function passwordChange(req, res, next) {
     res.redirect("/update/")
   } else {
     req.flash("notice", "Sorry, the password update failed.")
-    res.status(501).render("account/update", {
+    res.status(501).render("account/edit", {
       title: "Edit Account",
       nav,
       errors: null,
@@ -217,4 +225,4 @@ async function passwordChange(req, res, next) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, buildAccManagment, registerAccount, accountLogin, buildAccUpdate, accountUpdate, passwordChange }
+module.exports = accCont
